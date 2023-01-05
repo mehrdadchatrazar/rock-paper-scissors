@@ -44,3 +44,7 @@ function playRound(playerChoice, computerChoice){
     
 }
 
+const playerChoice = prompt("Rock or Paper or Scissors?").toLowerCase();
+const computerChoice = getComputerChoice();
+
+console.log(playRound(playerChoice, computerChoice));
