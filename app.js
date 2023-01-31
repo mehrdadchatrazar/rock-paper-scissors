@@ -14,8 +14,6 @@ let playerScore = 0;
 let computerScore = 0;
 
 function playRound(playerChoice, computerChoice) {
-  
-
   if (playerChoice == "rock" && computerChoice == "rock") {
     return "It's a Draw!";
   }
@@ -53,23 +51,34 @@ function playRound(playerChoice, computerChoice) {
   }
 }
 
-function game() {
-  for (let i = 0; i < 5; i++) {
-    const playerChoice = prompt("Rock or Paper or Scissors?").toLowerCase();
-    const computerChoice = getComputerChoice();
-    let winner = playRound(playerChoice, computerChoice);
-    console.log(winner);
-    console.log(`playerScore = ${playerScore}`);
-    console.log(`computerScore = ${computerScore}`);
-  }
+function game(playerChoice) {
+  const computerChoice = getComputerChoice();
+  let winner = playRound(playerChoice, computerChoice);
 
-  if (playerScore > computerScore) {
-    return "You won the best of five!";
-  } else if (playerScore == computerScore) {
-    return "Draw!";
-  } else {
-    return "You lose the best of five";
+  const winnerConatiner = document.querySelector(".winner");
+  winnerConatiner.textContent = winner;
+
+  const playerScoreContainer = document.querySelector(".playerScore");
+  playerScoreContainer.textContent = `Player Score = ${playerScore}`;
+
+  const computerScoreContainer = document.querySelector(".computerScore");
+  computerScoreContainer.textContent = `Computer Score = ${computerScore}`;
+
+  if (playerScore >= 5){
+    alert("You Win!");
+    computerScore = 0;
+    playerScore = 0;
+  } 
+  if (computerScore >= 5){
+    alert("Computer Wins!");
+    computerScore = 0;
+    playerScore = 0;
   }
 }
 
-console.log(game());
+const btns = document.querySelectorAll(".btn");
+btns.forEach((btn) =>
+  btn.addEventListener("click", function (e) {
+    game(e.target.dataset.choice);
+  })
+);
